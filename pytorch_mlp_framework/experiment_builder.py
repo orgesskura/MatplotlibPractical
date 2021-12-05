@@ -156,7 +156,7 @@ class ExperimentBuilder(nn.Module):
         ########################################
         for name,param in named_parameters:
             
-            if 'bias' in name or not param.requires_grad:
+            if 'bias' in name or not param.requires_grad or 'batch' in name:
                 continue
                 
             all_grads.append(abs(param.grad.cpu().numpy()).mean())
