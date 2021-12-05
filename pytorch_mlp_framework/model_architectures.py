@@ -362,20 +362,20 @@ class ConvolutionalProcessingBlockBatchNorm(nn.Module):
         self.layer_dict['conv_0'] = nn.Conv2d(in_channels=out.shape[1], out_channels=self.num_filters, bias=self.bias,
                                               kernel_size=self.kernel_size, dilation=self.dilation,
                                               padding=self.padding, stride=1)
-        self.layer_dict['batch_norm_0'] = nn.BatchNorm2d(self.num_filters)
+        self.layer_dict['batch_normalization_0'] = nn.BatchNorm2d(self.num_filters)
 
         out = self.layer_dict['conv_0'].forward(out)
-        out = self.layer_dict['batch_norm_0'].forward(out)
+        out = self.layer_dict['batch_normalization_0'].forward(out)
         out = F.leaky_relu(out)
 
         self.layer_dict['conv_1'] = nn.Conv2d(in_channels=out.shape[1], out_channels=self.num_filters, bias=self.bias,
                                               kernel_size=self.kernel_size, dilation=self.dilation,
                                               padding=self.padding, stride=1)
-        self.layer_dict['batch_norm_1'] = nn.BatchNorm2d(self.num_filters)
+        self.layer_dict['batch_normalization_1'] = nn.BatchNorm2d(self.num_filters)
                                   
 
         out = self.layer_dict['conv_1'].forward(out)
-        out = self.layer_dict['batch_norm_1'].forward(out)
+        out = self.layer_dict['batch_normalization_1'].forward(out)
         out = F.leaky_relu(out)
 
         print(out.shape)
@@ -384,11 +384,11 @@ class ConvolutionalProcessingBlockBatchNorm(nn.Module):
         out = x
 
         out = self.layer_dict['conv_0'].forward(out)
-        out = self.layer_dict['batch_norm_0'].forward(out)
+        out = self.layer_dict['batch_normalization_0'].forward(out)
         out = F.leaky_relu(out)
 
         out = self.layer_dict['conv_1'].forward(out)
-        out = self.layer_dict['batch_norm_1'].forward(out)
+        out = self.layer_dict['batch_normalization_1'].forward(out)
         out = F.leaky_relu(out)
 
         return out
@@ -417,22 +417,22 @@ class ConvolutionalDimensionalityReductionBlockBatchNorm(nn.Module):
         self.layer_dict['conv_0'] = nn.Conv2d(in_channels=out.shape[1], out_channels=self.num_filters, bias=self.bias,
                                               kernel_size=self.kernel_size, dilation=self.dilation,
                                               padding=self.padding, stride=1)
-        self.layer_dict['batch_norm_0'] = nn.BatchNorm2d(self.num_filters)
+        self.layer_dict['batch_normalization_0'] = nn.BatchNorm2d(self.num_filters)
 
         out = self.layer_dict['conv_0'].forward(out)
         
         out = F.leaky_relu(out)
 
         out = F.avg_pool2d(out, self.reduction_factor)
-        out = self.layer_dict['batch_norm_0'].forward(out)
+        out = self.layer_dict['batch_normalization_0'].forward(out)
 
         self.layer_dict['conv_1'] = nn.Conv2d(in_channels=out.shape[1], out_channels=self.num_filters, bias=self.bias,
                                               kernel_size=self.kernel_size, dilation=self.dilation,
                                               padding=self.padding, stride=1)
-        self.layer_dict['batch_norm_1'] = nn.BatchNorm2d(self.num_filters)
+        self.layer_dict['batch_normalization_1'] = nn.BatchNorm2d(self.num_filters)
 
         out = self.layer_dict['conv_1'].forward(out)
-        out = self.layer_dict['batch_norm_1'].forward(out)
+        out = self.layer_dict['batch_normalization_1'].forward(out)
         out = F.leaky_relu(out)
 
         print(out.shape)
@@ -444,10 +444,10 @@ class ConvolutionalDimensionalityReductionBlockBatchNorm(nn.Module):
         out = F.leaky_relu(out)
 
         out = F.avg_pool2d(out, self.reduction_factor)
-        out = self.layer_dict['batch_norm_0'].forward(out)
+        out = self.layer_dict['batch_normalization_0'].forward(out)
 
         out = self.layer_dict['conv_1'].forward(out)
-        out = self.layer_dict['batch_norm_1'].forward(out)
+        out = self.layer_dict['batch_normalization_1'].forward(out)
         out = F.leaky_relu(out)
 
         return out
@@ -481,10 +481,10 @@ class ConvolutionalProcessingBlockBatchNormResidualNet(nn.Module):
                                               padding=self.padding, stride=1)
         
         out = self.layer_dict['conv_0'].forward(out)
-        self.layer_dict['batch_norm_0'] = nn.BatchNorm2d(num_features=out.shape[1])
+        self.layer_dict['batch_normalization_0'] = nn.BatchNorm2d(num_features=out.shape[1])
 
         
-        out = self.layer_dict['batch_norm_0'].forward(out)
+        out = self.layer_dict['batch_normalization_0'].forward(out)
         out = F.leaky_relu(out)
 
         self.layer_dict['conv_1'] = nn.Conv2d(in_channels=out.shape[1], out_channels=self.num_filters, bias=self.bias,
@@ -493,8 +493,8 @@ class ConvolutionalProcessingBlockBatchNormResidualNet(nn.Module):
         
         out = self.layer_dict['conv_1'].forward(out)
 
-        self.layer_dict['batch_norm_1'] = nn.BatchNorm2d(num_features=out.shape[1])
-        out = self.layer_dict['batch_norm_1'].forward(out)
+        self.layer_dict['batch_normalization_1'] = nn.BatchNorm2d(num_features=out.shape[1])
+        out = self.layer_dict['batch_normalization_1'].forward(out)
 
         out += identity
 
@@ -507,11 +507,11 @@ class ConvolutionalProcessingBlockBatchNormResidualNet(nn.Module):
         out = x
 
         out = self.layer_dict['conv_0'].forward(out)
-        out = self.layer_dict['batch_norm_0'].forward(out)
+        out = self.layer_dict['batch_normalization_0'].forward(out)
         out = F.leaky_relu(out)
 
         out = self.layer_dict['conv_1'].forward(out)
-        out = self.layer_dict['batch_norm_1'].forward(out)
+        out = self.layer_dict['batch_normalization_1'].forward(out)
 
         out += identity
         out = F.leaky_relu(out)
